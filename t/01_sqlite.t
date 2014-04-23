@@ -42,6 +42,67 @@ subtest 'disable_inflate', sub {
     is( $inflate_called, 0);
 };
 
+subtest 'enable_inflate with guard previous disabled', sub {
+    my ($db, $id) = prepare();
+
+    $db->disable_inflate;
+    {
+        my $guard = $db->enable_inflate;
+        my $row = $db->single('person', { id => $id });
+        is( $row->{name}, 'Sherlock Shellingford' );
+        is( $row->{age},   15);
+        is( $inflate_called, 1);
+    }
+    my $row = $db->single('person', { id => $id });
+    is( $inflate_called, 1); #inflate is now disabled
+};
+
+subtest 'enable_inflate with guard previous enabled', sub {
+    my ($db, $id) = prepare();
+
+    $db->enable_inflate;
+    {
+        my $guard = $db->enable_inflate;
+        my $row = $db->single('person', { id => $id });
+        is( $row->{name}, 'Sherlock Shellingford' );
+        is( $row->{age},   15);
+        is( $inflate_called, 1);
+    }
+    my $row = $db->single('person', { id => $id });
+    is( $inflate_called, 2);
+};
+
+subtest 'disable_inflate with guard previous disabled', sub {
+    my ($db, $id) = prepare();
+
+    $db->disable_inflate;
+    {
+        my $guard = $db->disable_inflate;
+        my $row = $db->single('person', { id => $id });
+        is( $row->{name}, 'Sherlock Shellingford' );
+        is( $row->{age},   15);
+        is( $inflate_called, 0);
+    }
+    my $row = $db->single('person', { id => $id });
+    is( $inflate_called, 0);
+};
+
+subtest 'disable_inflate with guard previous enabled', sub {
+    my ($db, $id) = prepare();
+
+    $db->enable_inflate;
+    {
+        my $guard = $db->disable_inflate;
+        my $row = $db->single('person', { id => $id });
+        is( $row->{name}, 'Sherlock Shellingford' );
+        is( $row->{age},   15);
+        is( $inflate_called, 0);
+    }
+    my $row = $db->single('person', { id => $id });
+    is( $inflate_called, 1);
+};
+
+
 
 done_testing;
 

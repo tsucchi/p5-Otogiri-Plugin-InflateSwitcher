@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/tsucchi/p5-Otorigi-Plugin-InflateSwitcher.png?branch=master)](https://travis-ci.org/tsucchi/p5-Otorigi-Plugin-InflateSwitcher) [![Coverage Status](https://coveralls.io/repos/tsucchi/p5-Otorigi-Plugin-InflateSwitcher/badge.png?branch=master)](https://coveralls.io/r/tsucchi/p5-Otorigi-Plugin-InflateSwitcher?branch=master)
+[![Build Status](https://travis-ci.org/tsucchi/p5-Otogiri-Plugin-InflateSwitcher.png?branch=master)](https://travis-ci.org/tsucchi/p5-Otogiri-Plugin-InflateSwitcher) [![Coverage Status](https://coveralls.io/repos/tsucchi/p5-Otogiri-Plugin-InflateSwitcher/badge.png?branch=master)](https://coveralls.io/r/tsucchi/p5-Otogiri-Plugin-InflateSwitcher?branch=master)
 # NAME
 
 Otogiri::Plugin::InflateSwitcher - Otogiri plugin to enable/disable inflate
@@ -12,6 +12,14 @@ Otogiri::Plugin::InflateSwitcher - Otogiri plugin to enable/disable inflate
     my $row = $db->single(...); # inflate is disabled
     $db->enable_inflate;
     $row = $db->single(...); # inflate is enabled
+
+    # using guard
+    my $guard1 = $db->enable_inflate;
+    {
+        my $guard2 = $db->disable_inflate;
+        # inflate is disabled
+    } #dismiss $guard2
+    # inflate is enabled again
 
 # DESCRIPTION
 

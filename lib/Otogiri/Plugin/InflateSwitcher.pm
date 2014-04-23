@@ -4,22 +4,35 @@ use strict;
 use warnings;
 use parent qw(Otogiri::Plugin);
 
+use Scope::Guard;
+
 our $VERSION = "0.01";
 
 our @EXPORT = qw(enable_inflate disable_inflate);
 
 sub enable_inflate {
     my ($self) = @_;
-    return if ( !defined $self->{inflate_backup} || defined $self->{inflate} );
 
-    $self->{inflate} = delete $self->{inflate_backup};
+    my $enabled = defined $self->{inflate};
+    if ( defined $self->{inflate_backup} ) {
+        $self->{inflate} = delete $self->{inflate_backup};
+    }
+    if ( defined wantarray() ) {
+        return Scope::Guard->new( sub { $enabled ? $self->enable_inflate : $self->disable_inflate } );
+    }
 }
 
 sub disable_inflate {
     my ($self) = @_;
+
+    my $enabled = defined $self->{inflate};
     if ( defined $self->{inflate} ) {
         $self->{inflate_backup} = delete $self->{inflate};
     }
+    if ( defined wantarray() ) {
+        return Scope::Guard->new( sub { $enabled ? $self->enable_inflate : $self->disable_inflate } );
+    }
+
 }
 
 
@@ -41,6 +54,14 @@ Otogiri::Plugin::InflateSwitcher - Otogiri plugin to enable/disable inflate
     my $row = $db->single(...); # inflate is disabled
     $db->enable_inflate;
     $row = $db->single(...); # inflate is enabled
+
+    # using guard
+    my $guard1 = $db->enable_inflate;
+    {
+        my $guard2 = $db->disable_inflate;
+        # inflate is disabled
+    } #dismiss $guard2
+    # inflate is enabled again
 
 =head1 DESCRIPTION
 

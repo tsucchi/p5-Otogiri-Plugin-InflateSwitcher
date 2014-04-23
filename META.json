@@ -60,13 +60,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/tsucchi/p5-Otorigi-Plugin-InflateSwitcher/issues"
+         "web" : "https://github.com/tsucchi/p5-Otogiri-Plugin-InflateSwitcher/issues"
       },
-      "homepage" : "https://github.com/tsucchi/p5-Otorigi-Plugin-InflateSwitcher",
+      "homepage" : "https://github.com/tsucchi/p5-Otogiri-Plugin-InflateSwitcher",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/tsucchi/p5-Otorigi-Plugin-InflateSwitcher.git",
-         "web" : "https://github.com/tsucchi/p5-Otorigi-Plugin-InflateSwitcher"
+         "url" : "git://github.com/tsucchi/p5-Otogiri-Plugin-InflateSwitcher.git",
+         "web" : "https://github.com/tsucchi/p5-Otogiri-Plugin-InflateSwitcher"
       }
    },
    "version" : "0.01"
