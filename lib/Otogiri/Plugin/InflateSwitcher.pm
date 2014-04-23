@@ -13,24 +13,26 @@ our @EXPORT = qw(enable_inflate disable_inflate);
 sub enable_inflate {
     my ($self) = @_;
 
-    my $enabled = defined $self->{inflate};
+    my $current_status = $self->{inflate_enable};
+    $self->{inflate_enable} = 1;
     if ( defined $self->{inflate_backup} ) {
         $self->{inflate} = delete $self->{inflate_backup};
     }
     if ( defined wantarray() ) {
-        return Scope::Guard->new( sub { $enabled ? $self->enable_inflate : $self->disable_inflate } );
+        return Scope::Guard->new( sub { $current_status ? $self->enable_inflate : $self->disable_inflate } );
     }
 }
 
 sub disable_inflate {
     my ($self) = @_;
 
-    my $enabled = defined $self->{inflate};
+    my $current_status = $self->{inflate_enable};
+    $self->{inflate_enable} = 0;
     if ( defined $self->{inflate} ) {
         $self->{inflate_backup} = delete $self->{inflate};
     }
     if ( defined wantarray() ) {
-        return Scope::Guard->new( sub { $enabled ? $self->enable_inflate : $self->disable_inflate } );
+        return Scope::Guard->new( sub { $current_status ? $self->enable_inflate : $self->disable_inflate } );
     }
 
 }
