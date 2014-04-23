@@ -46,6 +46,7 @@
          "requires" : {
             "Otogiri" : "0.06",
             "Otogiri::Plugin" : "0.02",
+            "Scope::Guard" : "0",
             "parent" : "0",
             "perl" : "5.008005"
          }
