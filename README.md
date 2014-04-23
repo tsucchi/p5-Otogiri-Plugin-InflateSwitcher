@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/tsucchi/p5-Otorigi-Plugin-InflateSwitcher.png?branch=master)](https://travis-ci.org/tsucchi/p5-Otorigi-Plugin-InflateSwitcher) [![Coverage Status](https://coveralls.io/repos/tsucchi/p5-Otorigi-Plugin-InflateSwitcher/badge.png?branch=master)](https://coveralls.io/r/tsucchi/p5-Otorigi-Plugin-InflateSwitcher?branch=master)
 # NAME
 
 Otogiri::Plugin::InflateSwitcher - Otogiri plugin to enable/disable inflate
